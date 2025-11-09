@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Interview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+         /* Core Color Palette */
+            --color-dark-primary: #0a0a0a;
+            --color-dark-secondary: #1a1a2e;
+            --color-dark-tertiary: #2c2c44;
+            --color-accent: #785aed;
+            --color-accent-light: #9b86ff;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #aaaaaa;
+            /* Spacing & Sizing */
+            --header-height: 100px;
+            --spacing-large: 6rem;
+            --spacing-medium: 3rem;
+            --spacing-small: 1rem;
+        }
+
+        html {
+            background-color: var(--color-dark-secondary);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, var(--color-dark-primary), var(--color-dark-secondary));
+            background-size: 100% 200%;
+            animation: background-pulse 10s ease-in-out infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes background-pulse {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Header Bar */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-dark-tertiary);
+            height: var(--header-height);
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .circle-left, .circle-right {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0.85;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 15px rgba(120, 90, 237, 0.5);
+            animation: float-pulse 4s ease-in-out infinite;
+        }
+
+        .circle-left { left: 2rem; animation-delay: 0s; }
+        .circle-right { right: 2rem; animation-delay: 2s; }
+
+        @keyframes float-pulse {
+            0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+            50% { transform: translateY(-55%) scale(1.03); box-shadow: 0 0 25px rgba(120, 90, 237, 0.8); }
+            100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitter 3s linear infinite;
+        }
+
+        @keyframes glitter {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
+        }
+
+        /* Main Content Container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: var(--spacing-large) auto 0;
+            flex: 1 0 auto;
+            gap: 4rem;
+        }
+
+        /* Entrance Animation for content */
+        .container > * {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slide-in 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .text-section { animation-delay: 0.2s; }
+        .image-section { animation-delay: 0.4s; }
+
+        @keyframes slide-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .text-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        .text-section h1:last-of-type {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+        
+        .typing { color: var(--color-accent); }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 1em;
+            background-color: var(--color-accent-light);
+            margin-left: 2px;
+            vertical-align: bottom;
+            animation: blink 0.7s infinite;
+            border-radius: 2px;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .caption {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        /* Innovative Button */
+        .btn {
+            position: relative;
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: var(--color-dark-tertiary); /* Updated to match header */
+            color: var(--color-text-primary); /* Updated for better contrast */
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.3s ease-out;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            /* Updated to use header's glitter gradient on hover */
+            background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+            background-size: 300% 100%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Updated for a darker shadow */
+            background: var(--color-dark-tertiary); /* Keep background solid on hover */
+        }
+        
+        .btn:hover::after {
+            width: 300px;
+            height: 300px;
+            opacity: 1;
+            animation: glitter 3s linear infinite; /* Apply glitter animation on hover */
+        }
+
+        .image-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: image-float 6s ease-in-out infinite;
+        }
+
+        @keyframes image-float {
+            0% { transform: translateY(0) scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+            33% { transform: translateY(-10px) scale(1.01); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); }
+            66% { transform: translateY(5px) scale(0.99); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+            100% { transform: translateY(0) scale(1); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-dark-tertiary);
+            color: var(--color-text-secondary);
+            text-align: center;
+            padding: var(--spacing-medium) var(--spacing-small);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            margin-top: var(--spacing-large);
+        }
+
+        footer::before {
+            content: "";
+            display: block;
+            width: 60%;
+            margin: 0 auto 1.5rem;
+            border-top: 1px solid var(--color-dark-primary);
+        }
+
+        footer p { margin: 5px 0; }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin-top: 4rem;
+                text-align: center;
+                gap: 2rem;
+            }
+            .image-section, .text-section {
+                flex: none;
+                width: 100%;
+                text-align: center;
+            }
+            .text-section { padding-right: 0; }
+            .header-title { font-size: 2rem; }
+            .circle-left, .circle-right {
+                width: 60px;
+                height: 60px;
+            }
+            .circle-left { left: 1rem; }
+            .circle-right { right: 1rem; }
+            .caption { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="download.png" alt="Ace Interview logo left" class="circle-left">
+        <h1 class="header-title">Ace Interview</h1>
+        <img src="ace right.jpeg" alt="Ace Interview logo right" class="circle-right">
+    </header>
+
+    <div class="container">
+        <div class="text-section">
+            <h1>Boost Your</h1>
+            <h1><span class="typing"></span><span class="cursor"></span></h1>
+            <h1>with <span style="color:var(--color-accent-light);">Ace</span></h1>
+
+            <p class="caption">
+                Get real interview experience with smart practice sessions designed to boost your confidence and sharpen your skills.
+            </p>
+
+            <a href="instructions.html" class="btn">Take an interview</a>
+        </div>
+
+        <div class="image-section">
+            <img src="istockphoto-2216193545-612x612.jpg" alt="A professional interviewing, an illustration.">
+        </div>
+    </div>
+
+    <footer>
+        <p>About Ace Interview: Boost your interview skills with AI-assisted practice and feedback.</p>
+        <p>© 2025 Ace Interview. Prepare, practice, succeed!</p>
+    </footer>
+
+    <script>
+        const words = ["Interview Skills", "Communication", "Preparation", "Confidence"];
+        let i = 0;
+        let j = 0;
+        let isDeleting = false;
+        const typingElement = document.querySelector(".typing");
+
+        function typeEffect() {
+            const currentWord = words[i];
+
+            if (!isDeleting && j < currentWord.length) {
+                typingElement.textContent = currentWord.substring(0, j + 1);
+                j++;
+                setTimeout(typeEffect, 120);
+            } else if (!isDeleting && j === currentWord.length) {
+                setTimeout(() => {
+                    isDeleting = true;
+                    typeEffect();
+                }, 1000);
+            } else if (isDeleting && j > 0) {
+                typingElement.textContent = currentWord.substring(0, j - 1);
+                j--;
+                setTimeout(typeEffect, 80);
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i = (i + 1) % words.length;
+                setTimeout(typeEffect, 200);
+            }
+        }
+
+        typeEffect();
+    </script>
+</body>
+</html>

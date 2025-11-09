@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions - Ace Interview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-dark-primary: #0a0a0a;
+            --color-dark-secondary: #1a1a2e;
+            --color-dark-tertiary: #2c2c44;
+            --color-accent: #785aed;
+            --color-accent-light: #9b86ff;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #aaaaaa;
+            --color-green: #4caf50;
+            --spacing-medium: 3rem;
+            --spacing-small: 1rem;
+        }
+        html { background-color: var(--color-dark-primary); }
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, var(--color-dark-primary), var(--color-dark-secondary));
+            background-size: 100% 200%;
+            animation: background-pulse 10s ease-in-out infinite;
+            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        @keyframes background-pulse {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: var(--color-dark-tertiary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitter 3s linear infinite;
+        }
+        @keyframes glitter {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 300% 0%; }
+        }
+        .container {
+            flex: 1;
+            max-width: 900px;
+            margin: var(--spacing-medium) auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        .card {
+            background: var(--color-dark-tertiary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+        }
+        .card-header {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-accent-light);
+        }
+        .rounds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .round-item {
+            background: var(--color-dark-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .round-item:hover { border-color: var(--color-accent); transform: translateY(-5px); }
+        .round-item h3 { font-size: 1.5rem; color: var(--color-accent-light); margin-top: 0; }
+        .round-item p { font-size: 1rem; color: var(--color-text-secondary); }
+        .proceed-btn {
+            margin-top: 3rem;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: var(--color-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .proceed-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4); }
+        footer {
+            background: var(--color-dark-tertiary);
+            color: var(--color-text-secondary);
+            text-align: center;
+            padding: var(--spacing-small);
+        }
+        @media (max-width: 768px) {
+            .header-title { font-size: 2rem; }
+            .container { padding: 1rem; }
+            .card { padding: 1.5rem; }
+            .rounds-grid { grid-template-columns: 1fr; }
+            .proceed-btn { font-size: 1rem; padding: 1rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Ace Interview</h1>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2 class="card-header">Rounds Overview</h2>
+            <p>Please read the instructions carefully before starting your interview.</p>
+            <div class="rounds-grid">
+                <div class="round-item">
+                    <h3>Round 1: General Aptitude</h3>
+                    <p>Focuses on problem-solving, reasoning, and communication skills. No prior domain knowledge is required.</p>
+                </div>
+                <div class="round-item">
+                    <h3>Round 2: Technical</h3>
+                    <p>Tests general technical and problem-solving abilities relevant to various roles. Questions are generic and domain-independent.</p>
+                </div>
+                <div class="round-item">
+                    <h3>Round 3: HR</h3>
+                    <p>This round evaluates personality, professional attitude, and career goals. Be prepared to discuss your strengths and experiences.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="proceed-btn" onclick="startInterview()">Proceed to Interview</button>
+    </div>
+
+    <footer>
+        <p>© 2025 Ace Interview. Prepare, practice, succeed!</p>
+    </footer>
+
+    <script>
+      function startInterview() {
+        window.location.href = 'round1.html';
+      }
+    </script>
+</body>
+</html>

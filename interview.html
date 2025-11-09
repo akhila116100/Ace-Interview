@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Setup - Ace Interview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  /* Core Color Palette */
+      --color-dark-primary: #0a0a0a;
+      --color-dark-secondary: #1a1a2e;
+      --color-dark-tertiary: #2c2c44;
+      --color-accent: #785aed;
+      --color-accent-light: #9b86ff;
+      --color-text-primary: #e0e0e0;
+      --color-text-secondary: #aaaaaa;
+
+  /* Spacing & Sizing */
+      --header-height: 100px;
+      --spacing-large: 6rem;
+      --spacing-medium: 3rem;
+      --spacing-small: 1rem;
+    }
+
+    html {
+      background-color: var(--color-dark-secondary);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: var(--color-text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, var(--color-dark-primary), var(--color-dark-secondary));
+      background-size: 100% 200%;
+      animation: background-pulse 10s ease-in-out infinite;
+      overflow-x: hidden;
+    }
+
+    @keyframes background-pulse {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
+    /* Header Bar */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-dark-tertiary);
+      height: var(--header-height);
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    .circle-left, .circle-right {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0.85;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 15px rgba(120, 90, 237, 0.5);
+      animation: float-pulse 4s ease-in-out infinite;
+    }
+
+    .circle-left { left: 2rem; animation-delay: 0s; }
+    .circle-right { right: 2rem; animation-delay: 2s; }
+
+    @keyframes float-pulse {
+      0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+      50% { transform: translateY(-55%) scale(1.03); box-shadow: 0 0 25px rgba(120, 90, 237, 0.8); }
+      100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+    }
+
+    .header-title {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitter 3s linear infinite;
+    }
+
+    @keyframes glitter {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 300% 0%; }
+    }
+
+    /* Main Content Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 90%;
+      max-width: 800px;
+      margin: var(--spacing-medium) auto 0;
+      flex: 1 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-text-primary);
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--color-text-secondary);
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .setup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-group {
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-primary);
+    }
+
+    /* Removed .select-placeholder from style block - see JavaScript note below */
+
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid var(--color-dark-tertiary);
+      border-radius: 8px;
+      background: var(--color-dark-tertiary);
+      color: var(--color-text-primary);
+      appearance: none;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .select-placeholder-text { 
+        color: var(--color-text-secondary); /* Styling for the placeholder option text */
+    } 
+
+    .select-wrapper { position: relative; display: block; }
+
+    .select-wrapper::after {
+      content: '▼';
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .start-btn {
+      position: relative;
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: var(--color-dark-tertiary);
+      color: var(--color-text-primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      overflow: hidden;
+      border: none;
+      cursor: pointer;
+      z-index: 1;
+      transition: all 0.3s ease-out;
+    }
+
+    .start-btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+      background-size: 300% 100%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+      z-index: -1;
+      opacity: 0;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      background: var(--color-dark-tertiary);
+    }
+
+    .start-btn:hover::after {
+      width: 300px;
+      height: 300px;
+      opacity: 1;
+      animation: glitter 3s linear infinite;
+    }
+
+    footer {
+      background: var(--color-dark-tertiary);
+      color: var(--color-text-secondary);
+      text-align: center;
+      padding: var(--spacing-medium) var(--spacing-small);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      margin-top: var(--spacing-large);
+    }
+
+    footer::before {
+      content: "";
+      display: block;
+      width: 60%;
+      margin: 0 auto 1.5rem;
+      border-top: 1px solid var(--color-dark-primary);
+    }
+
+    footer p { margin: 5px 0; }
+
+    @media (max-width: 768px) {
+      .container { gap: 2rem; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="download.png" alt="Ace Interview logo left" class="circle-left">
+    <h1 class="header-title">Ace Interview</h1>
+    <img src="ace right.jpeg" alt="Ace Interview logo right" class="circle-right">
+  </header>
+
+  <div class="container">
+    <h1>Prepare for Your Interview</h1>
+    <p>Choose your interview domain below to begin your personalized practice session.</p>
+    
+    <div class="setup-form">
+      <div class="form-group">
+        <label for="domain">Select a Domain:</label>
+        <div class="select-wrapper">
+          <select id="domain" name="domain"> 
+            <option value="" disabled selected class="select-placeholder-text">--select--</option> 
+            <option value="artificial-intelligence">Artificial Intelligence</option>
+            <option value="data-science">Data Science</option>
+          </select>
+        </div>
+      </div>
+      <button class="start-btn">Start Interview</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>About Ace Interview: Boost your interview skills with AI-assisted practice and feedback.</p>
+    <p>© 2025 Ace Interview. Prepare, practice, succeed!</p>
+  </footer>
+
+  <script>
+    // Removed the 'selects' and 'select.select-placeholder' code block as it's no longer necessary 
+    // due to the fix in the HTML and the simplified logic below.
+
+    const startButton = document.querySelector('.start-btn');
+    const domainSelect = document.getElementById('domain');
+
+    startButton.addEventListener('click', function() {
+      const selectedDomain = domainSelect.value;
+      
+      // Check if the selectedDomain is a truthy value (i.e., not the empty string from the disabled option)
+      if (selectedDomain) {
+        // Correct and robust way to handle the navigation
+        window.location.href = `round2.html?domain=${selectedDomain}`;
+      } else {
+        alert("Please select an interview domain to proceed.");
+      }
+    });
+  </script>
+</body>
+</html>

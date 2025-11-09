@@ -1,0 +1,16 @@
+{
+  "questions": [
+    {
+      "question": "What is the difference between supervised and unsupervised learning?",
+      "answer": "Supervised learning uses labeled data to train models, while unsupervised learning uses unlabeled data to find patterns."
+    },
+    {
+      "question": "Explain the concept of overfitting in machine learning.",
+      "answer": "Overfitting occurs when a model learns the training data and noise too well, resulting in poor performance on new, unseen data."
+    },
+    {
+      "question": "Name two types of neural network activation functions.",
+      "answer": "Two types are ReLU and Sigmoid."
+    }
+  ]
+}

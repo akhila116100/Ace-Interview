@@ -1,0 +1,23 @@
+{
+  "questions": [
+    {
+      "question": "What is the primary characteristic that distinguishes Machine Learning from traditional programming?",
+      "answer": "Machine Learning allows the system to learn from data without being explicitly programmed."
+    },
+    
+    {
+      "question": "What are the two main types of learning in machine learning when data has labeled outputs versus unlabeled outputs?",
+      "answer": "Supervised learning and unsupervised learning."
+    },
+    
+    {
+      "question": "What is a feature in the context of machine learning?",
+      "answer": "A feature is an individual measurable property or characteristic of a phenomenon being observed."
+    },
+    
+    {
+      "question": "What is a Neural Network primarily composed of?",
+      "answer": "It is composed of interconnected nodes or neurons organized in layers."
+    }
+  ]
+}

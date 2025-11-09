@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Interview Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            /* Core Color Palette (from Ace Interview landing page) */
+            --color-dark-primary: #0a0a0a;
+            --color-dark-secondary: #1a1a2e;
+            --color-dark-tertiary: #2c2c44; /* Used for header and card bg */
+            --color-accent: #785aed;
+            --color-accent-light: #9b86ff;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #aaaaaa;
+
+            /* Spacing & Sizing */
+            --header-height: 100px;
+            --spacing-medium: 3rem;
+            --spacing-small: 1rem;
+        }
+
+        html {
+            background-color: var(--color-dark-secondary);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, var(--color-dark-primary), var(--color-dark-secondary));
+            background-size: 100% 200%;
+            animation: background-pulse 10s ease-in-out infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes background-pulse {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Header Bar */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-dark-tertiary);
+            height: var(--header-height);
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        .circle-left, .circle-right {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            opacity: 0.85;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 15px rgba(120, 90, 237, 0.5);
+            animation: float-pulse 4s ease-in-out infinite;
+        }
+
+        .circle-left { left: 2rem; animation-delay: 0s; }
+        .circle-right { right: 2rem; animation-delay: 2s; }
+
+        @keyframes float-pulse {
+            0% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+            50% { transform: translateY(-55%) scale(1.03); box-shadow: 0 0 25px rgba(120, 90, 237, 0.8); }
+            100% { transform: translateY(-50%) scale(1); box-shadow: 0 0 15px rgba(120, 90, 237, 0.5); }
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(90deg, #6a5acd 0%, #d4af7f 50%, #6a5acd 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Login Container (main content area) */
+        .login-wrapper {
+            flex: 1; /* Allows the wrapper to take up remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-medium) var(--spacing-small); /* Add some padding */
+        }
+
+        .login-container {
+            background-color: var(--color-dark-tertiary); /* Consistent with header */
+            padding: 1.5rem 2.5rem 2.5rem; /* Reduced top padding */
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: login-box-pulse 8s ease-in-out infinite, fadeIn 1s ease-in-out; /* Added pulse animation */
+            margin-top: 10px; /* Reduced space from the header */
+            position: relative; /* For shine effect and z-index */
+            z-index: 5;
+            overflow: hidden; /* Important for containing the shine effect */
+
+            /* NEW: Animated Border */
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--color-dark-tertiary), var(--color-dark-tertiary)), 
+                              linear-gradient(90deg, #6a5acd, #d4af7f, #785aed, #9b86ff, #6a5acd);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            background-size: 200% 200%; /* For animating the gradient */
+            animation: login-box-pulse 8s ease-in-out infinite, 
+                       fadeIn 1s ease-in-out,
+                       animated-border 6s linear infinite; /* Added border animation */
+        }
+
+        /* New animation for the login box pulse */
+        @keyframes login-box-pulse {
+            0% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+            50% { transform: scale(1.01); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); }
+        }
+
+        /* NEW: Animated border keyframes */
+        @keyframes animated-border {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        /* Shine effect for login box hover */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05); /* Light transparent overlay */
+            transform: rotate(30deg);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        .login-container:hover::before {
+            animation: shine 1.5s linear forwards;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translateX(-100%); opacity: 0.3; }
+            100% { transform: rotate(30deg) translateX(100%); opacity: 0; }
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--color-accent-light);
+            /* Removed text-shadow to stop the glow effect */
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--color-dark-primary); /* Darker input background */
+            border: none;
+            border-radius: 8px;
+            color: var(--color-text-primary);
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            background-color: #1b1b33; /* Slightly lighter on focus */
+            box-shadow: 0 0 0 2px var(--color-accent); /* Accent border on focus */
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--color-accent); /* Use accent color */
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(120, 90, 237, 0.4); /* Initial shadow for button */
+        }
+
+        .login-btn:hover {
+            background-color: var(--color-accent-light); /* Lighter accent on hover */
+            transform: translateY(-2px);
+            /* Removed box-shadow enhancement to remove the "shine" effect */
+        }
+        
+        /* NEW: Active state for click feedback */
+        .login-btn:active {
+            transform: scale(0.98); /* Slightly shrink the button */
+            background-color: var(--color-dark-primary); /* Darken the background */
+            transition: transform 0.1s ease; /* Quick transition for immediate feedback */
+        }
+
+        /* Footer (optional, but good for consistency) */
+        footer {
+            background: var(--color-dark-tertiary);
+            color: var(--color-text-secondary);
+            text-align: center;
+            padding: var(--spacing-small);
+            flex-shrink: 0;
+            margin-top: auto; /* Push footer to the bottom */
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        footer::before {
+            content: "";
+            display: block;
+            width: 60%;
+            margin: 0 auto 0.5rem;
+            border-top: 1px solid var(--color-dark-primary);
+        }
+
+
+        @media (max-width: 768px) {
+            .header-title { font-size: 2rem; }
+            .circle-left, .circle-right {
+                width: 60px;
+                height: 60px;
+            }
+            .circle-left { left: 1rem; }
+            .circle-right { right: 1rem; }
+            .login-container {
+                padding: 2rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="download.png" alt="Ace Interview logo left" class="circle-left">
+        <h1 class="header-title">Ace Interview</h1>
+        <img src="ace right.jpeg" alt="Ace Interview logo right" class="circle-right">
+    </header>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <h2>Sign in</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Ace Interview. Prepare, practice, succeed!</p>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents the form from submitting normally
+            
+            // Redirects the user to the index.html page
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

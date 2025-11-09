@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Round 1 Interview</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #2b2b4d);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .interview-box {
+    width: 95%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(30, 30, 60, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    position: relative;
+  }
+  h1 {
+    color: #9b86ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .interviewers-area {
+    width: 100%;
+    position: relative;
+    margin-bottom: 102px;
+  }
+  .interviewers {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .interviewer {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #785aed;
+    overflow: visible;
+    background: #000;
+    margin: 0 12px;
+  }
+  .interviewer img, .interviewer video {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .interviewer video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  .status-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #fff;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.12);
+    z-index: 10;
+    transition: background 0.3s, border 0.3s;
+  }
+  .status-circle.active {
+    background: #36d46c;
+    border-color: #fff;
+  }
+  .popup-bar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: 20px;
+    background: #1a1a2e;
+    color: #fff;
+    font-weight: 600;
+    padding: 18px 30px;
+    border-radius: 36px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    font-size: 1.12rem;
+    text-align: center;
+    display: none;
+  }
+  .popup-bar.error {
+    background: #a3344c;
+  }
+  .candidate {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid #ff9800;
+    overflow: hidden;
+    margin-bottom: 45px;
+  }
+  .candidate img, .candidate video {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .candidate video { display: none; }
+  .btn-container {
+    display: flex;
+    gap: 25px;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  .btn {
+    padding: 15px 35px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: #785aed;
+    color: #fff;
+    transition: transform 0.2s, background 0.3s;
+  }
+  .btn:hover {
+    background: #9b86ff;
+    transform: scale(1.05);
+  }
+  .score-circle {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #ff9800;
+    color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.8);
+    z-index: 20;
+    padding: 5px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.5s, width 0.5s, height 0.5s, font-size 0.5s;
+  }
+  .score-circle small {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: -3px;
+    transition: opacity 0.3s;
+  }
+  .round-btn-container {
+    display: none;
+    gap: 25px;
+  }
+  .next-btn {
+    background: #36d46c;
+  }
+  .next-btn:hover {
+    background: #6cf098;
+  }
+</style>
+</head>
+<body>
+
+<div class="interview-box">
+  <h1>Round 1 Interview</h1>
+
+  <div class="score-circle" id="scoreCircle">
+    <span id="currentScore">0</span>
+    <small id="totalQuestions">/0</small>
+  </div>
+
+  <div class="interviewers-area">
+    <div class="interviewers">
+      <div class="interviewer" data-index="0">
+        <img src="avatar1.jpg" alt="Avatar 1" />
+        <video src="avatar1.mp4" loop muted playsinline></video>
+        <div class="status-circle"></div>
+      </div>
+      <div class="interviewer" data-index="1">
+        <img src="avatar2.jpg" alt="Avatar 2" />
+        <video src="avatar2.mp4" loop muted playsinline></video>
+        <div class="status-circle"></div>
+      </div>
+      <div class="interviewer" data-index="2">
+        <img src="avatar3.jpg" alt="Avatar 3" />
+        <video src="avatar3.mp4" loop muted playsinline></video>
+        <div class="status-circle"></div>
+      </div>
+      <div class="interviewer" data-index="3">
+        <img src="avatar4.jpg" alt="Avatar 4" />
+        <video src="avatar4.mp4" loop muted playsinline></video>
+        <div class="status-circle"></div>
+      </div>
+    </div>
+    <div class="popup-bar" id="popupBar" role="status" aria-live="polite">
+      <span id="popupText"></span>
+    </div>
+  </div>
+
+  <div class="candidate">
+    <img src="candidate.jpg" alt="Candidate" />
+    <video src="candidate.mp4" loop muted playsinline></video>
+  </div>
+
+  <div class="btn-container" id="initial-btn-container">
+    <button class="btn" id="startBtn" disabled>Start Interview</button>
+    <button class="btn" id="replayBtn" style="display:none;">Replay Question</button>
+  </div>
+
+  <div class="btn-container round-btn-container" id="roundNavContainer" style="margin-top:18px;">
+    <button class="btn next-btn" id="nextRoundBtn">Next Round ➡️</button>
+  </div>
+</div>
+
+<script>
+let questions = [], shuffledQuestions = [], currentQ = 0;
+let score = 0;
+let interviewStarted = false;
+let voices = [];
+
+const interviewerEls = document.querySelectorAll(".interviewer");
+const statusEls = document.querySelectorAll(".status-circle");
+const candidateImg = document.querySelector(".candidate img");
+const candidateVid = document.querySelector(".candidate video");
+const popupBar = document.getElementById("popupBar");
+const popupText = document.getElementById("popupText");
+const scoreCircle = document.getElementById("scoreCircle");
+const currentScoreEl = document.getElementById("currentScore");
+const totalQuestionsEl = document.getElementById("totalQuestions");
+const startBtn = document.getElementById("startBtn");
+const replayBtn = document.getElementById("replayBtn");
+const roundNavContainer = document.getElementById("roundNavContainer");
+const nextRoundBtn = document.getElementById("nextRoundBtn");
+const interviewerVoices = ["male", "female", "male", "female"];
+
+function loadVoices() {
+  voices = window.speechSynthesis.getVoices() || [];
+  if (!voices.length) {
+    setTimeout(loadVoices, 200);
+  } else {
+    console.log("Loaded voices:", voices.map(v => `${v.name} (${v.lang})`));
+  }
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function getVoice(gender) {
+  if (!voices || voices.length === 0) return undefined;
+  let filtered = voices.filter(v => {
+    const name = v.name || '';
+    if (gender === 'female') return /female|woman|zira|susan|mary|samantha|victoria|kate|amelia/i.test(name);
+    return /male|man|david|alex|mark|michael|daniel|john/i.test(name);
+  });
+  if (!filtered.length) filtered = voices.filter(v => /en/i.test(v.lang));
+  return filtered[0] || voices[0];
+}
+
+function updateScoreDisplay() {
+  currentScoreEl.textContent = score;
+}
+function updateIndicator(i) {
+  statusEls.forEach((el, idx) => el.classList.toggle("active", idx === i));
+}
+function showPopup(msg, error = false) {
+  popupText.textContent = msg;
+  popupBar.classList.toggle("error", error);
+  popupBar.style.display = "block";
+  setTimeout(() => {
+    popupBar.style.display = "none";
+  }, error ? 2500 : 4000);
+}
+function toggleAvatar(i, speaking) {
+  interviewerEls.forEach((el, idx) => {
+    const img = el.querySelector("img"), vid = el.querySelector("video");
+    if (idx === i && speaking) {
+      if (img) img.style.display = "none";
+      if (vid) { vid.style.display = "block"; vid.play().catch(()=>{}); }
+    } else {
+      if (img) img.style.display = "block";
+      if (vid) { vid.pause(); vid.style.display = "none"; }
+    }
+  });
+}
+function candidateSpeak(active) {
+  if (candidateImg) candidateImg.style.display = active ? "none" : "block";
+  if (candidateVid) {
+    candidateVid.style.display = active ? "block" : "none";
+    try {
+      active ? candidateVid.play().catch(()=>{}) : candidateVid.pause();
+    } catch(e){}
+  }
+}
+
+function speakInterviewer(i, text, cb) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  const u = ('SpeechSynthesisUtterance' in window) ? new SpeechSynthesisUtterance(text) : null;
+  const voice = getVoice(interviewerVoices[i]) || undefined;
+  if (u) {
+    u.voice = voice;
+    u.rate = 1;
+    u.pitch = 1;
+    toggleAvatar(i, true);
+    showPopup(text);
+    u.onend = () => { toggleAvatar(i, false); if (cb) cb(); };
+    u.onerror = () => { toggleAvatar(i, false); if (cb) cb(); };
+    try {
+      window.speechSynthesis.speak(u);
+    } catch (e) {
+      setTimeout(() => { toggleAvatar(i, false); if (cb) cb(); }, 600);
+    }
+  } else {
+    showPopup(text);
+    toggleAvatar(i, true);
+    setTimeout(() => { toggleAvatar(i, false); if (cb) cb(); }, 800 + Math.min(3000, text.length * 30));
+  }
+}
+
+fetch("round1_questions.json")
+  .then(res => {
+    if (!res.ok) throw new Error("File not found or network error.");
+    return res.json();
+  })
+  .then(data => {
+    questions = data.questions || [];
+    if (!questions || !questions.length) throw new Error("No questions found in the JSON file.");
+    shuffledQuestions = questions.slice(0, 2);
+    totalQuestionsEl.textContent = "/" + shuffledQuestions.length;
+    startBtn.disabled = false;
+  })
+  .catch(err => {
+    console.error("Error loading JSON:", err);
+    showPopup(`Error loading questions: ${err.message}. Check 'round1_questions.json' path.`, true);
+    startBtn.disabled = true;
+  });
+
+let lastQIndex = null, lastQText = null;
+
+startBtn.addEventListener('click', () => {
+  if (!interviewStarted && shuffledQuestions.length > 0) {
+    interviewStarted = true;
+    currentQ = 0;
+    score = 0;
+    updateScoreDisplay();
+    scoreCircle.style.opacity = '0';
+    scoreCircle.style.width = '70px';
+    scoreCircle.style.height = '70px';
+    currentScoreEl.style.fontSize = '1.2rem';
+    totalQuestionsEl.style.display = 'block';
+    startBtn.style.display = 'none';
+    replayBtn.style.display = 'inline-flex';
+    roundNavContainer.style.display = 'none';
+    runInterview();
+  } else if (shuffledQuestions.length === 0) {
+    showPopup("Waiting for questions to load. Please check file.", true);
+  }
+});
+
+function runInterview() {
+  if (currentQ >= shuffledQuestions.length) {
+    const message = `Round 1 Complete! Final Score: ${score} / ${shuffledQuestions.length}.`;
+    currentScoreEl.textContent = score;
+    scoreCircle.style.opacity = '1';
+    scoreCircle.style.width = '120px';
+    scoreCircle.style.height = '120px';
+    currentScoreEl.style.fontSize = '3rem';
+    totalQuestionsEl.style.display = 'block';
+    totalQuestionsEl.textContent = `/${shuffledQuestions.length}`;
+    showPopup(message);
+    updateIndicator(-1);
+    replayBtn.style.display = 'none';
+    roundNavContainer.style.display = 'flex';
+    interviewStarted = false;
+    return;
+  }
+
+  const idx = currentQ % interviewerEls.length;
+  updateIndicator(idx);
+  const q = shuffledQuestions[currentQ].question || "";
+  lastQIndex = idx;
+  lastQText = q;
+  speakInterviewer(idx, q, () => setTimeout(() => captureAnswer(idx), 500));
+}
+
+function captureAnswer(idx) {
+  candidateSpeak(true);
+  replayBtn.style.display = 'none';
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    candidateSpeak(false);
+    showPopup("Speech Recognition not supported in this browser.", true);
+    currentQ++;
+    setTimeout(() => runInterview(), 1200);
+    return;
+  }
+
+  const rec = new SpeechRecognition();
+  rec.lang = 'en-US';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+  let recognized = false;
+
+  const answerTimeout = setTimeout(() => {
+    if (!recognized) {
+      try { rec.stop(); } catch (e) {}
+      candidateSpeak(false);
+      replayBtn.style.display = 'inline-flex';
+      speakInterviewer(idx, "Time limit exceeded. Moving to the next question.", () => {
+        currentQ++;
+        setTimeout(() => runInterview(), 1200);
+      });
+    }
+  }, 15000);
+
+  rec.onresult = (ev) => {
+    clearTimeout(answerTimeout);
+    recognized = true;
+    const ans = (ev.results && ev.results[0] && ev.results[0][0] && ev.results[0][0].transcript)
+      ? ev.results[0][0].transcript.trim() : "";
+    candidateSpeak(false);
+    replayBtn.style.display = 'inline-flex';
+    const currentQuestionData = shuffledQuestions[currentQ] || {};
+    const correct = (currentQuestionData.answer || "").toString();
+    const recognizedLower = ans.toLowerCase();
+    const correctLower = correct.toLowerCase();
+    let isCorrect = false;
+    if (correctLower.length > 0) {
+      isCorrect =
+        recognizedLower.includes(correctLower) ||
+        recognizedLower.includes(correctLower.substring(0, Math.min(8, correctLower.length))) ||
+        correctLower.includes(recognizedLower);
+    }
+    let correctMsg = "";
+    if (isCorrect) {
+      score++;
+      updateScoreDisplay();
+      correctMsg = "Excellent! Its a correct answer.";
+    } else {
+      correctMsg = `I heard you say: "${ans}". The correct answer is "${correct}".`;
+    }
+    speakInterviewer(idx, correctMsg, () => {
+      currentQ++;
+      setTimeout(() => runInterview(), 1200);
+    });
+  };
+
+  rec.onerror = (event) => {
+    clearTimeout(answerTimeout);
+    recognized = true;
+    candidateSpeak(false);
+    replayBtn.style.display = 'inline-flex';
+    if (event.error === 'no-speech') {
+      speakInterviewer(idx, "No voice detected. Please ensure your microphone is active.", () => {
+        currentQ++;
+        setTimeout(() => runInterview(), 1200);
+      });
+    } else {
+      showPopup("Error during recognition: " + event.error, true);
+      currentQ++;
+      setTimeout(() => runInterview(), 1200);
+    }
+  };
+
+  rec.onend = () => {
+    candidateSpeak(false);
+    replayBtn.style.display = 'inline-flex';
+  };
+
+  try {
+    rec.start();
+  } catch (e) {
+    console.error(e);
+    candidateSpeak(false);
+    showPopup("Recognition error: " + e.message, true);
+    currentQ++;
+    setTimeout(() => runInterview(), 1200);
+  }
+}
+
+replayBtn.addEventListener('click', () => {
+  if (interviewStarted && lastQText) {
+    replayBtn.style.display = 'none';
+    speakInterviewer(lastQIndex, lastQText, () => setTimeout(() => captureAnswer(lastQIndex), 500));
+  }
+});
+
+/* Next Round handler */
+nextRoundBtn.addEventListener('click', () => {
+  window.location.href = "interview.html";
+});
+</script>
+
+</body>
+</html>

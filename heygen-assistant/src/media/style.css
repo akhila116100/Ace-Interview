@@ -1,0 +1,37 @@
+/* media/style.css */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--vscode-foreground);
+    background-color: var(--vscode-editor-background);
+}
+
+#status {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--vscode-statusBarItem-errorBackground);
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid var(--vscode-input-border);
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+}

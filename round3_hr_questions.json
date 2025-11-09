@@ -1,0 +1,24 @@
+{
+  "questions": [
+    {
+      "question": "Tell me about yourself.",
+      "answer": "I’m a dedicated student passionate about learning and exploring new technologies. I aim to build a successful career where I can contribute and grow.."
+    },
+    {
+      "question": "Why do you want to work for our company?",
+      "answer": "I want to start my career with a reputed organization like yours where I can learn, contribute, and grow while being part of a dynamic team.."
+    },
+    {
+      "question": "Describe a challenge you faced and how you overcame it.",
+      "answer": "I once struggled with meeting a project deadline, so I planned my tasks better and managed my time efficiently to complete it successfully."
+    },
+    {
+      "question": "What are your strengths and weaknesses?",
+      "answer": "I’m strong in communication and teamwork. I sometimes take longer on details, but I’m improving by managing time and focusing on prioritiesg."
+    },
+    {
+      "question": "Where do you see yourself in five years?",
+      "answer": "In five years, I see myself as a skilled professional contributing significantly to the company’s growth. I also aim to keep learning and advancing in my career."
+    }
+  ]
+}

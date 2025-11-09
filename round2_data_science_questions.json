@@ -1,0 +1,23 @@
+{
+  "questions": [
+    {
+      "question": "What is the primary goal of data cleaning?",
+      "answer": "To fix errors, inconsistencies, and missing values in a dataset."
+    },
+    
+    {
+      "question": "Name two types of common charts used for Exploratory Data Analysis (EDA).",
+      "answer": "Histogram and scatter plot"
+    },
+    
+    {
+      "question": "What does SQL stand for, and what is it primarily used for?",
+      "answer": "Structured Query Language, used for managing and querying relational databases."
+    },
+    
+    {
+      "question": "In machine learning, what is the difference between training data and test data?",
+      "answer": "Training data is used to build the model, and test data is used to evaluate its performance."
+    }
+  ]
+}
